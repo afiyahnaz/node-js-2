@@ -54,9 +54,9 @@ class SoapCtrl{
   //DELETE http://localhost:3003/api/books/:id
   delete = (req, res) => {
     const id = +req.params.id;
-    for(let i =0; i<books.length; i++){
-        if(books[i].id===id){
-            books.splice(i, 1);
+    for(let i =0; i<products.length; i++){
+        if(products[i].id===id){
+            products.splice(i, 1);
             break;
 
         }
@@ -65,5 +65,45 @@ class SoapCtrl{
     res.status(204); //no content
     res.send();
 }
+//UPDATE//verb::pUT
+//PUT http://localhost:3003/api/books/:id
+
+update = (req,res)=>{
+    const id = +req.params.id;
+    const payload = req.body;
+    for(let i =0; i<products.length;i++){
+      if(products[i].id === id){
+        products[i].name = payload.name;
+        products[i].cost = payload.cost;
+        products[i].stock = payload.stock;
+      }
+    }
+    res.status(204);//no content
+    res.send();
+  }
+
+  //PATCH http://localhost:3003/api/books/:id   {body}  {name :200}
+
+patch = (req,res) =>{
+    const id = +req.params.id;
+    const payload = req.body;
+  
+    //higher order function.......
+    const duck = products.find(function(elem){
+        return elem.id === id;
+    });
+    
+    if(duck){
+        for(let key in payload){
+            duck[key] =payload[key];
+         }  
+               res.status(204);
+               res.send();
+     }        //  body.price = payload.price
+        else{
+            res.status(404);
+            res.send('Not Found');
+        }
+    }
     }
     module.exports = new SoapCtrl();

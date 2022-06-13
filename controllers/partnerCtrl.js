@@ -67,6 +67,46 @@ create = (req,res) =>{
         res.status(204); //no content
         res.send();
     }
+    
+//UPDATE//verb::pUT
+//PUT http://localhost:3003/api/books/:id
+
+update = (req,res)=>{
+    const id = +req.params.id;
+    const payload = req.body;
+    for(let i =0; i<apple.length;i++){
+      if(apple[i].id === id){
+        apple[i].name = payload.name;
+        apple[i].cost = payload.cost;
+        apple[i].stock = payload.stock;
+      }
+    }
+    res.status(204);//no content
+    res.send();
+  }
+  //PATCH http://localhost:3003/api/books/:id   {body}  {name :200}
+
+patch = (req,res) =>{
+    const id = +req.params.id;
+    const payload = req.body;
+  
+    //higher order function.......
+    const fruit = apple.find(function(elem){
+        return elem.id === id;
+    });
+    
+    if(fruit){
+        for(let key in payload){
+            fruit[key] =payload[key];
+         }  
+               res.status(204);
+               res.send();
+     }        //  body.price = payload.price
+        else{
+            res.status(404);
+            res.send('Not Found');
+        }
+    }
 
     }
     module.exports = new PartnerCtrl();

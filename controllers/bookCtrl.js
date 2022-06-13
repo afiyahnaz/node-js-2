@@ -56,58 +56,60 @@ class BookCtrl{
   }
 
   //DELETE http://localhost:3003/api/books/:id
-//   delete = (req, res) => {
-//     const id = +req.params.id;
-//     for(let i =0; i<books.length; i++){
-//         if(books[i].id===id){
-//             books.splice(i, 1);
-//             break;
+  delete = (req, res) => {
+    const id = +req.params.id;
+    for(let i =0; i<books.length; i++){
+        if(books[i].id===id){
+            books.splice(i, 1);
+            break;
 
-//         }
-//     }
+        }
+    }
 
-//     res.status(204); //no content
-//     res.send();
-// }
+    res.status(204); //no content
+    res.send();
+}
 
 //UPDATE//verb::pUT
 //PUT http://localhost:3003/api/books/:id
 
-// update = (req,res)=>{
-//   const id = +req.params.id;
-//   const payload = req.body;
-//   for(let i =0; i<books.length;i++){
-//     if(books[i].id === id){
-//       books[i].name = payload.name;
-//       books[i].price = payload.price;
-//     }
-//   }
-//   res.send(204);//no content
-//   res.send();
-// }
+update = (req,res)=>{
+  const id = +req.params.id;
+  const payload = req.body;
+  for(let i =0; i<books.length;i++){
+    if(books[i].id === id){
+      books[i].name = payload.name;
+      books[i].stock = payload.stock;
+    }
+  }
+  res.status(204);//no content
+  res.send();
+}
 
 
 
 
 //PATCH http://localhost:3003/api/books/:id   {body}  {name :200}
 
-// patch = (req,res) =>{
-//   const id = +req.params.id;
-//   const payload = req.body;
-//   //higher order function.......
-//   const book = books.find(function(elem){
-//       return elem.id === id;
-//   });
-//   if(book){
-//       for(let key in payload){
-//           book[key] =payload[key];
-//        }  
-//    }        //  body.price = payload.price
-//       else{
-//           res.status(404);
-//           res.send('Not Found');
-//       }
-//   }
+patch = (req,res) =>{
+  const id = +req.params.id;
+  const payload = req.body;
+  //higher order function.......
+  const book = books.find(function(elem){
+      return elem.id === id;
+  });
+  if(book){
+      for(let key in payload){
+          book[key] =payload[key];
+       }  
+             res.status(204);
+             res.send();
+   }        //  body.price = payload.price
+      else{
+          res.status(404);
+          res.send('Not Found');
+      }
+  }
 
 
 
